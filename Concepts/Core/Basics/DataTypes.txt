@@ -1,1 +1,81 @@
 This document explains about Javascript Data Types
+
+javascript has two broad categories of data types
+
+primitive Types
+===============
+
+primitive types are immutable in nature. This means, once a primitive data type is created, it's value remains unchanged in memory.
+Any "change" you make to a primitive actually creates a new value instead of modifying the old one
+
+For example:
+Example 1:
+============
+let str = "Hello";
+str[0] = "J"; // Trying to change first character
+console.log(str); // "Hello" (not "Jello")
+
+str = str + " World";
+console.log(str); // "Hello World"
+
+In this example, "Hello" was never modified
+Instead, a new string "Hello World" was created and str now points to that new vlaue
+
+Example 2:
+============
+let x = 5;
+x = x + 1;
+console.log(x); //6
+
+Here, we didn't mutate 5 instead, a new primitive number 6 is created and assigned to x
+
+Example 3:
+==========
+let flag = true;
+flag = !flag;
+console.log(flag);
+
+Here, true itself is not changed to false but a new primitive false is created.
+
+
+Non-Primitive Types
+===================
+Non-Primitive types can be mutated.
+Objects (including arrays, functions) are mutable. Their properties/elements can be changed in place, without creating a new object.
+
+For Example:
+let obj = {name : "hemanth" };
+obj.name = "Shiva";
+console.log(obj); // {name : "Shiva"} // Mutated in place
+
+let arr = [1,2,3];
+arr.push(4);
+console.log(arr); // [1,2,3,4] // Mutated in place
+
+Immutable Primitive: Any "Change" => creates a new value, doesn't modify the original
+Mutable Object: Can be modified in place
+
+Why Immutability of Primitives matters in practice
+--------------------------------------------------
+1. Memory Management
+    Since primitives are immutable, the Javascript engine can reuse them in memory.
+    Example: All variables with value true point to the same memory location
+
+    This is faster and memory efficient compared to objects, where each object is a new reference.
+
+2. String Operations
+    Strings are immutable, so every modification creates a new string. This is why concatenating strings in loops can be slow in some cases where it is better to use arrays + join()/
+
+3. Equality Checks Become simpler
+    With primitives, equality is by value. with objects, equality is by reference which is tricker
+
+4. Predictability in Functions (No side effects)
+    Since primitives cannot be changed, passing them to functions is safe. Functions can't accidentally mutate them.
+
+5. Functional Programming Benefits
+    Many functional programming techniques like map, filter and reduce rely on immutability. Since primitives don't change, you avoid bugs from unexpected mutations.
+
+6. Thread Safety (Theoretical in JS)
+    Javascript is single threaded, but with web workers and shared memory, immutability prevents race conditions. A primitive value is always stable because it can't be altered by another worker.
+
+
